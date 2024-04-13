@@ -1,35 +1,10 @@
-import { APP_URL } from "../../env";
+import { getAddressesForFid } from "frames.js";
+import { actionMetadata } from "../../const";
 import { calculateTotalNetWorth, formatUsdDisplay } from "../../utils";
 import { frames } from "../frames";
-import { getAddressesForFid } from "frames.js";
-
-type ActionMetadata = {
-  /** The action name. Must be less than 30 characters. */
-  name: string;
-  /** An [Octicons](https://primer.style/foundations/icons) icon name. */
-  icon: string;
-  /** A short description up to 80 characters. */
-  description: string;
-  /** External link to an "about" page for extended description. */
-  aboutUrl: string;
-  /** The action type. (Same type options as frame buttons). Only post is accepted in V1. */
-  action: {
-    type: "post";
-  };
-};
 
 export const GET = () => {
-  const metadata: ActionMetadata = {
-    action: {
-      type: "post",
-    },
-    icon: "credit-card",
-    name: "Check Portfolio",
-    aboutUrl: APP_URL!,
-    description: "Check the total value of the user's connected wallets.",
-  };
-
-  return Response.json(metadata);
+  return Response.json(actionMetadata);
 };
 
 export const POST = frames(async (ctx) => {
